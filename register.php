@@ -1,5 +1,8 @@
 <?php
- require_once 'inc/fonctions.php';
+require_once 'inc/fonctions.php';
+
+session_start();
+
 if(!empty($_POST)) { // Si défférent de vide lance le reste
 
     $errors = array();
@@ -16,12 +19,11 @@ if(!empty($_POST)) { // Si défférent de vide lance le reste
 
         $req->execute([$_POST['userName']]);
 
-        $email = $req->fetch();
+        $user = $req->fetch();
 
         if($user){
 
         $errors['userName'] = 'Ce pseudo est déjà pris';
-
 
         }
 
@@ -30,9 +32,8 @@ if(!empty($_POST)) { // Si défférent de vide lance le reste
     if(empty($_POST['userEmail']) || !filter_var($_POST['userEmail'], FILTER_VALIDATE_EMAIL)){ // Si userEmail vide ou adress mail invalide
 
         $errors['userEmail'] = "Votre Email n'est pas valide";
-
         
-}   else {
+    }   else {
 
         $req =$pdo->prepare('SELECT id FROM usersInformations WHERE email = ?');
 
@@ -44,18 +45,16 @@ if(!empty($_POST)) { // Si défférent de vide lance le reste
 
         $errors['userEmail'] = 'Cette email est déjà utilisé pour un autre compte';
 
-
     }
 
     if(empty($_POST['userPassword']) || $_POST['userPassword'] != $_POST['userPasswordConfirm']) { // Si userPassword vide ou userPasswordConfirm différent du userPassword
 
         $errors['userPassword'] = "Vous devez entrer un mot de passe valide";
-        debug($errors);
+        
     } 
 
     if(empty($errors)) { // SI pas d'erreurs dans la totalité des inputs
 
-    
     $req = $pdo->prepare("INSERT INTO usersInformations SET username = ?, password = ?, email = ?, validationToken= ?"); // Insert dans la bdd mais pas directement pour des questions de sécurités
     
     $password = password_hash($_POST['userPassword'], PASSWORD_BCRYPT); // Crypte le mot de passe 
@@ -66,36 +65,37 @@ if(!empty($_POST)) { // Si défférent de vide lance le reste
 
     $userId = $pdo->lastInsertId();
 
-    mail($_POST['userEmail'], 'Confirmation de votre compte', "Afin de valider votre compte merci de cliquer sur  le lien\n\nhttp://localhost/dev/quizzPhp/inc/confirm.php?id=$userId&token=$token");
+    mail($_POST['userEmail'], 'Confirmation de votre compte', "Afin de valider votre compte merci de cliquer sur  le lien\n\nhttp://localhost/dev/quizzPhp/confirm.php?id=$userId&token=$token");
+
+    $_SESSION['flash']['success'] = 'Un email de confirmation vous a été envoyé pour la création de votre compte';
 
     header('Location: login.php');
     
     exit();
 
-    }
 }
 }
-
+}
 
 ?>
 <?php include_once 'inc/header.php' ?>
 
 <h1>S'inscire</h1>
 
-<?php if(!empty($errors)) ?> <!---- Si erreur est different de vide lance un boucle qui montre les erreurs -------------------------->
+<?php if(!empty($errors))  //<!---- Si erreur est different de vide lance un boucle qui montre les erreurs -------------------------->
+
+    foreach($errors as $error): ?>
 
 <div class="alert alert-danger">
 
     <p>Vous n'avez pas rempli le formulaire correctement</p>
 
-    <?php foreach($errors as $error): ?>
 
-    <li><?= $error; ?></li>
+<li><?= $error; ?></li>
 
 <?php endforeach; ?>
 
 </div>
-
 
 <form method="POST" action="">
 
@@ -107,10 +107,8 @@ if(!empty($_POST)) { // Si défférent de vide lance le reste
     <label for="">Email</label>
     <input type="text" name="userEmail" class="form-control" />
 
-
     <label for="">Mot de passe</label>
     <input type="password" name="userPassword" class="form-control" />
-
 
     <label for="">Confirmer votre mot de passe</label>
     <input type="password" name="userPasswordConfirm" class="form-control" />
@@ -118,6 +116,5 @@ if(!empty($_POST)) { // Si défférent de vide lance le reste
     <button type="submit" class="btn btn-primary">M'inscrire</button>
 
 </form>
-
 
 <?php require 'inc/footer.php' ?>
