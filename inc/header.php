@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -8,11 +9,14 @@
     <title>Document</title>
 </head>
 <body>
+
+<nav class="navbar navbar-expand-sm bg-light">
     <ul class="nav navbar-nav">
 
         <?php  if(isset($_SESSION['auth'])): ?> <!------- Si connecté on affiche --------->
 
         <li><a href="logout.php">Se déconnecter</a></li>
+        <li><a href="account.php">Mon compte</a></li>
 
         <?php else: ?> <!------- Si pas connecté on afficher -------------------->
 
@@ -20,6 +24,7 @@
         <li><a href="login.php">Se connecter</a></li>
         
      <?php endif; ?>
+</nav>
 
 
     </ul>

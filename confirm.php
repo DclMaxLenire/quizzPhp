@@ -6,18 +6,18 @@ $token = $_GET['token'];
 
 require 'inc/db.php';
 
-$req= $pdo->prepare('SELECT * FROM usersInformations WHERE id = ?');
+$req= $pdo->prepare('SELECT * FROM membre WHERE idMembre = ?');
 
 $req->execute([$userId]);
 
 $user = $req->fetch();
 
 
-if($user && $user->validationToken == $token) {
+if($user && $user->validationTokenMembre == $token) {
 
     session_start();
     
-    $pdo->prepare('UPDATE usersInformations SET validationToken = NULL, confirmedDate = NOW() WHERE id = ?')->execute([$userId]);
+    $pdo->prepare('UPDATE membre SET validationTokenMembre = NULL, confirmedDateMembre = NOW() WHERE idMembre = ?')->execute([$userId]);
 
     $_SESSION['flash']['success'] = 'Votre compte a bien été validé';
 

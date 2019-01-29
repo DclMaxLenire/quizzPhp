@@ -4,8 +4,9 @@
 
     unset($_SESSION['auth']); // Suprime la partie d'authentification
 
-    
-    header('Location: login.php');
+    $_SESSION['flash']['success'] = 'Vous etes bien déconnecté à la prochaine';
+
+    require_once 'inc/header.php';
 
     exit();
 ?>

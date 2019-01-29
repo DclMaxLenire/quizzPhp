@@ -15,7 +15,7 @@ if(!empty($_POST)) { // Si défférent de vide lance le reste
         
     } else {
 
-        $req =$pdo->prepare('SELECT id FROM usersInformations WHERE username = ?');
+        $req =$pdo->prepare('SELECT idMembre FROM membre WHERE nomMembre = ?');
 
         $req->execute([$_POST['userName']]);
 
@@ -35,7 +35,7 @@ if(!empty($_POST)) { // Si défférent de vide lance le reste
         
     }   else {
 
-        $req =$pdo->prepare('SELECT id FROM usersInformations WHERE email = ?');
+        $req =$pdo->prepare('SELECT idMembre FROM membre WHERE emailMembre = ?');
 
         $req->execute([$_POST['userEmail']]);
 
@@ -55,7 +55,7 @@ if(!empty($_POST)) { // Si défférent de vide lance le reste
 
     if(empty($errors)) { // SI pas d'erreurs dans la totalité des inputs
 
-    $req = $pdo->prepare("INSERT INTO usersInformations SET username = ?, password = ?, email = ?, validationToken= ?"); // Insert dans la bdd mais pas directement pour des questions de sécurités
+    $req = $pdo->prepare("INSERT INTO membre SET nomMembre = ?, motDePasseMembre = ?, emailMembre = ?, validationTokenMembre = ?"); // Insert dans la bdd mais pas directement pour des questions de sécurités
     
     $password = password_hash($_POST['userPassword'], PASSWORD_BCRYPT); // Crypte le mot de passe 
 
@@ -66,8 +66,6 @@ if(!empty($_POST)) { // Si défférent de vide lance le reste
     $userId = $pdo->lastInsertId();
 
     mail($_POST['userEmail'], 'Confirmation de votre compte', "Afin de valider votre compte merci de cliquer sur  le lien\n\nhttp://localhost/dev/quizzPhp/confirm.php?id=$userId&token=$token");
-
-    $_SESSION['flash']['success'] = 'Un email de confirmation vous a été envoyé pour la création de votre compte';
 
     header('Location: login.php');
     

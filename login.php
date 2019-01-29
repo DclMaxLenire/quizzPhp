@@ -6,13 +6,13 @@ require_once 'inc/db.php';
 
 require_once 'inc/fonctions.php';
 
-$req = $pdo->prepare('SELECT * FROM usersInformations WHERE (username = :username OR email = :username) AND confirmedDate IS NOT NULL');
+$req = $pdo->prepare('SELECT * FROM membre WHERE (nomMembre = :nomMembre OR emailMembre = nomMembre) AND confirmedDateMembre IS NOT NULL');
 
-$req->execute(['username' => $_POST['userName']]);
+$req->execute(['nomMembre' => $_POST['userName']]);
 
 $user = $req->fetch(); // Récupère l'utilisateur
 
-if(password_verify($_POST['userPassword'], $user->password)){
+if(password_verify($_POST['userPassword'], $user->motDePasseMembre)){
 
     session_start();
 
@@ -26,10 +26,12 @@ if(password_verify($_POST['userPassword'], $user->password)){
 
 } else {
 
-    header('Location: login.php');
+    $_SESSION['flash']['danger'] = "Heu vous avez fait une erreur d'email ou de mot de passe";
 }
 }
 ?>
+
+<?php include 'inc/header.php'; ?>
 
 <h1>Se connecter </h1>
 
