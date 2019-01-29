@@ -6,7 +6,7 @@
 
     $_SESSION['flash']['success'] = 'Vous etes bien déconnecté à la prochaine';
 
-    require_once 'inc/header.php';
-
+    header('Location: login.php');
+    
     exit();
 ?>

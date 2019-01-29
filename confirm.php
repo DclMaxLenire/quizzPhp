@@ -12,7 +12,6 @@ $req->execute([$userId]);
 
 $user = $req->fetch();
 
-
 if($user && $user->validationTokenMembre == $token) {
 
     session_start();
@@ -33,19 +32,3 @@ if($user && $user->validationTokenMembre == $token) {
     header('Location: login.php');
     exit();
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-?>

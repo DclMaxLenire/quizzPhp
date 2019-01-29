@@ -1,3 +1,8 @@
+<?php
+if(session_status() == PHP_SESSION_NONE) {
+    session_start();
+}
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -8,33 +13,30 @@
     <title>Document</title>
 </head>
 <body>
-    <?php 
-        include 'inc/header.php';
-        ?>
+<?php  if(isset($_SESSION['auth'])): ?>
+<h5 class="text-center">Vous etes connectez sur le compte de <?= $_SESSION['auth']->nomMembre; ?></h5>
 
-    <div class="container">
-        <div class="row justify-content-center">
-            <div class="col-12-justify-content-center">
-            Bienvenu sur ZiuQuiz
-            </div>
+<?php else: ?>
 
-            <div class="container">
+<?php endif; ?>
 
-            <ul class="nav justify-content-center">
-                <li class="nav-item">
-                <a class="nav-link" href="themeChoix.php">Répondre à un questionaire</a>
-                </li>
-                <li class="nav-item">
-                <a class="nav-link" href="creationQuestionnaire.php">Crée un questionaire</a>
-                </li>
-            </ul>
-            <div>
-        </div>
-    </div>
+<nav class="navbar navbar-expand-sm bg-light">
+    <ul class="nav navbar-nav">
 
+        <?php  if(isset($_SESSION['auth'])): ?> <!------- Si connecté on affiche --------->
 
+        <li><a href="logout.php">Se déconnecter</a></li>
+        <li><a href="account.php">Mon compte</a></li>
+        <li><a href="index.php">Retour Accueil</a></li>
 
+        <?php else: ?> <!------- Si pas connecté on afficher -------------------->
 
+        <li><a href="register.php">S'inscrire</a></li>
+        <li><a href="login.php">Se connecter</a></li>
+        <li><a href="index.php">Retour Accueil</a></li>
+        
+<?php endif; ?>
+</nav>
 
 </body>
 </html>

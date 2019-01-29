@@ -1,3 +1,9 @@
+<?php
+if(session_status() == PHP_SESSION_NONE) {
+    session_start();
+};
+?>
+<?php require 'fonctions.php';?>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -17,13 +23,15 @@
 
         <li><a href="logout.php">Se déconnecter</a></li>
         <li><a href="account.php">Mon compte</a></li>
+        <li><a href="index.php">Retour Accueil</a></li>
 
         <?php else: ?> <!------- Si pas connecté on afficher -------------------->
 
         <li><a href="register.php">S'inscrire</a></li>
         <li><a href="login.php">Se connecter</a></li>
+        <li><a href="index.php">Retour Accueil</a></li>
         
-     <?php endif; ?>
+<?php endif; ?>
 </nav>
 
 
@@ -31,8 +39,7 @@
 <div class="container">
 
 <?php if(isset($_SESSION['flash'])): ?> <!----- Gère les messages d'erreurs ----------->
-
-    <?php foreach($_SESSION['flash'] as $type => $message): ?>
+<?php foreach($_SESSION['flash'] as $type => $message): ?>
 
     <div class="alert alert-<?= $type; ?>">
 
@@ -41,9 +48,7 @@
     </div>
 
 <?php endforeach; ?>
-
 <?php unset($_SESSION['flash']); ?> <!--------- Supprime le message d'erreur ---------------->
-
 <?php endif; ?>
 
 </div>

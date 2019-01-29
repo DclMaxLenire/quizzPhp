@@ -1,17 +1,12 @@
+<?php require 'inc/header.php'; ?>
+
 <?php 
-
-session_start();
-
-require 'inc/fonctions.php';
 
 loggedOnly();
 
 ?>
 
-<?php require 'inc/header.php'; ?>
-
-<h2 class="text-center">Votre compte </h2>
-
+<h2 class="text-center">Bonjour  <?= $_SESSION['auth']->nomMembre; ?></h2>
 
 <div class="container">
         <div class="row justify-content-center">

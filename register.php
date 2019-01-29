@@ -1,7 +1,6 @@
-<?php
-require_once 'inc/fonctions.php';
+<?php include_once 'inc/header.php';?>
 
-session_start();
+<?php
 
 if(!empty($_POST)) { // Si défférent de vide lance le reste
 
@@ -45,7 +44,7 @@ if(!empty($_POST)) { // Si défférent de vide lance le reste
 
         $errors['userEmail'] = 'Cette email est déjà utilisé pour un autre compte';
 
-    }
+    }}
 
     if(empty($_POST['userPassword']) || $_POST['userPassword'] != $_POST['userPasswordConfirm']) { // Si userPassword vide ou userPasswordConfirm différent du userPassword
 
@@ -66,17 +65,16 @@ if(!empty($_POST)) { // Si défférent de vide lance le reste
     $userId = $pdo->lastInsertId();
 
     mail($_POST['userEmail'], 'Confirmation de votre compte', "Afin de valider votre compte merci de cliquer sur  le lien\n\nhttp://localhost/dev/quizzPhp/confirm.php?id=$userId&token=$token");
-
-    header('Location: login.php');
-    
+?>
+        <p class="color: green, backgournd-color: green">Un email vous as étais envoyez pour la validation<p>
+     <button class="btn btn-primary"><a class="nav-link" href="login.php">Aller se connecter</a></button>
+<?php   
     exit();
 
 }
 }
-}
 
 ?>
-<?php include_once 'inc/header.php' ?>
 
 <h1>S'inscire</h1>
 
