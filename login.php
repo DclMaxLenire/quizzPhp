@@ -5,30 +5,23 @@ if(!empty($_POST) && !empty($_POST['userName']) && !empty($_POST['userPassword']
 require_once 'inc/db.php';
 
 $req = $pdo->prepare('SELECT * FROM membre WHERE (nomMembre = :nomMembre OR emailMembre = nomMembre) AND confirmedDateMembre IS NOT NULL');
-
 $req->execute(['nomMembre' => $_POST['userName']]);
-
 $user = $req->fetch(); // Récupère l'utilisateur
-
 session_start();
 
 if(password_verify($_POST['userPassword'], $user->motDePasseMembre)){
-     
-    $_SESSION['auth'] = $user;
-    
-    $_SESSION['flash']['success'] = 'Vous etes maintenant bien connecté';
-    
-    header('Location: account.php');
-    
-    exit();
-    
+
+$_SESSION['auth'] = $user;
+$_SESSION['flash']['success'] = 'Vous etes maintenant bien connecté';
+header('Location: account.php');
+exit();
+
 } else {
-   
-    $_SESSION['flash']['danger'] = "Heu vous avez fait une erreur d'email ou de mot de passe";
 
-    header('Location: login.php');
+$_SESSION['flash']['danger'] = "Heu vous avez fait une erreur d'email ou de mot de passe";
+header('Location: login.php');
+exit();
 
-    exit();
 }
 }
 
@@ -36,22 +29,21 @@ include('inc/header.php'); ?>
 
 <div class="container">
 
-<h1>Se connecter </h1>
+    <h1>Se connecter </h1>
 
-<form method="POST" action="">
-<link rel="stylesheet" href="css/bootstrap.min.css">
+        <form method="POST" action="">
 
-<div class="form-group">
+            <div class="form-group">
 
-    <label for="">Pseudo ou email</label>
-    <input type="text" name="userName" class="form-control" required />
+                <label for="">Pseudo ou email</label>
+                <input type="text" name="userName" class="form-control" required />
 
-    <label for="">Mot de passe<a href="forget.php">(J'ai oublié mon mot de passe)</a></label>
-    <input type="password" name="userPassword" class="form-control" required/>
+                <label for="">Mot de passe<a href="forget.php">(J'ai oublié mon mot de passe)</a></label>
+                <input type="password" name="userPassword" class="form-control" required/>
 
-    <button type="submit" class="btn btn-primary">Se connecter</button>
-    <a href="index.php">Acceuil</a>
+                <button type="submit" class="btn btn-primary">Se connecter</button>
+                <a href="index.php">Acceuil</a>
 
-</form>
+        </form>
 
 <?php include'inc/footer.php';
