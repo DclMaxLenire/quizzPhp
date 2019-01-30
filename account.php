@@ -27,5 +27,14 @@ loggedOnly();
             <div>
         </div>
     </div>
+<?php 
 
-<?php require 'inc/footer.php'; ?>
+include_once 'inc/db.php';
+$statut = $_SESSION['auth']->statutMembre;
+if($_SESSION['auth'] && $statut == 1) {
+    ?>
+    <p>Vous etes sur un compte admin<p>
+    <button type="submit" class="btn btn-primary"><a href="admin.php">Aller sur la page admin</a></button>
+<?php
+}
+require 'inc/footer.php'; ?>

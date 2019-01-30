@@ -53,6 +53,6 @@ if(session_status() == PHP_SESSION_NONE) {
 
 </div>
 
-
+<script src="js/script.js"></script>
 </body>
 </html>

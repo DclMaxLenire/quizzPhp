@@ -7,6 +7,3 @@
     $_SESSION['flash']['success'] = 'Vous etes bien déconnecté à la prochaine';
 
     header('Location: login.php');
-    
-    exit();
-?>

@@ -19,7 +19,7 @@ if(session_status() == PHP_SESSION_NONE) {
 <?php else: ?>
 
 <?php endif; ?>
-
+<div class="container">
 <nav class="navbar navbar-expand-sm bg-light">
     <ul class="nav navbar-nav">
 
@@ -30,13 +30,13 @@ if(session_status() == PHP_SESSION_NONE) {
         <li><a href="index.php">Retour Accueil</a></li>
 
         <?php else: ?> <!------- Si pas connecté on afficher -------------------->
-
+    <h5 class="text-center">Bienvenu sur ZiuQuiz<?= $_SESSION['auth']->nomMembre; ?></h5>
         <li><a href="register.php">S'inscrire</a></li>
         <li><a href="login.php">Se connecter</a></li>
         <li><a href="index.php">Retour Accueil</a></li>
         
 <?php endif; ?>
 </nav>
-
+</div>
 </body>
 </html>
