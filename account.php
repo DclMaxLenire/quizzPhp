@@ -3,36 +3,22 @@
 <?php 
 loggedOnly();
 ?>
-
-<h2 class="text-center">Bonjour  <?= $_SESSION['auth']->nomMembre; ?></h2>
+<h2 class="text-center">Mon compte</h2>
+<h5 class="text-center">Bonjour  <?= $_SESSION['auth']->nomMembre; ?></h5>
 
 <div class="container">
+<nav aria-label="breadcrumb">
+<ol class="breadcrumb">
+<li class="breadcrumb-item active" aria-current="page"> <a class="nav-link" href="themeChoix.php">Répondre à un questionaire</a></li>
+</ol>
+</nav>
 
-    <div class="row justify-content-center">
-
-        <div class="col-12-justify-content-center">
-
-            Bienvenu sur ZiuQuiz
-
-        </div>
-
-            <div class="container">
-
-                <ul class="nav justify-content-center">
-
-                    <li class="nav-item">
-                    <a class="nav-link" href="themeChoix.php">Répondre à un questionaire</a>
-                    </li>
-
-                    <li class="nav-item">
-                    <a class="nav-link" href="creationQuestionnaire.php">Crée un questionaire</a>
-                    </li>
-
-                </ul>
-
-            </div>
-
-        </div>
+<nav aria-label="breadcrumb">
+<ol class="breadcrumb">
+<li class="breadcrumb-item active" aria-current="page"><a class="nav-link" href="creationQuestionnaire.php">Crée un questionaire</a></li>
+</ol>
+</nav>
+      
 <?php 
 include_once 'inc/db.php';
 
@@ -41,10 +27,12 @@ if($_SESSION['auth'] && $statut == 1) {
 
 ?>
 
-<p>Vous etes sur un compte admin<p>
-
-<button type="submit" class="btn btn-primary"><a href="admin.php">Aller sur la page admin</a></button>
-
+<nav aria-label="breadcrumb">
+<ol class="breadcrumb">
+<li class="breadcrumb-item active" aria-current="page"><a class="nav-link" href="admin.php">Aller sur la page admin</a></li>
+</ol>
+</nav>
+</div>
 <?php
 
 }

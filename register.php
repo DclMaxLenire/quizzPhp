@@ -59,8 +59,6 @@ exit();
 
 ?>
 
-<h1>S'inscire</h1>
-
 <?php if(!empty($errors))  //<!---- Si erreur est different de vide lance un boucle qui montre les erreurs -------------------------->
 
 foreach($errors as $error): ?>
@@ -75,26 +73,31 @@ foreach($errors as $error): ?>
 <?php endforeach; ?>
 
 </div>
+<div class="container">
+    
+<h1 class="text-center">Inscription</h1 class="text-center">
 
 <form method="POST" action="">
 
     <div class="form-group">
 
         <label for="">Pseudo</label>
-        <input type="text" name="userName" class="form-control" />
+        <input type="text" name="userName" class="form-control"/>
 
         <label for="">Email</label>
-        <input type="text" name="userEmail" class="form-control" />
+        <input type="text" name="userEmail" class="form-control"/>
 
         <label for="">Mot de passe</label>
-        <input type="password" name="userPassword" class="form-control" />
+        <input type="password" name="userPassword" class="form-control"/>
 
         <label for="">Confirmer votre mot de passe</label>
-        <input type="password" name="userPasswordConfirm" class="form-control" />
+        <input type="password" name="userPasswordConfirm" class="form-control"/><br>
 
         <button type="submit" class="btn btn-primary">M'inscrire</button>
 
     </div>
+
+</div>
 
 </form>
 

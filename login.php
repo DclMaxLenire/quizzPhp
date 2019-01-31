@@ -29,7 +29,7 @@ include('inc/header.php'); ?>
 
 <div class="container">
 
-    <h1>Se connecter </h1>
+    <h1 class="text-center">Se connecter </h1>
 
         <form method="POST" action="">
 
@@ -39,10 +39,12 @@ include('inc/header.php'); ?>
                 <input type="text" name="userName" class="form-control" required />
 
                 <label for="">Mot de passe<a href="forget.php">(J'ai oublié mon mot de passe)</a></label>
-                <input type="password" name="userPassword" class="form-control" required/>
+                <input type="password" name="userPassword" class="form-control" required/><br>
 
-                <button type="submit" class="btn btn-primary">Se connecter</button>
-                <a href="index.php">Acceuil</a>
+                <button type="submit" class="btn btn-primary">Se connecter</button><br>
+
+                <br><label for="">Retour <a href="index.php">Acceuil</a></label>
+               
 
         </form>
 

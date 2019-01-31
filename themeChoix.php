@@ -1,15 +1,35 @@
 <?php include_once 'inc/header.php';?>
 
-<h1>Veuillez choisir un theme<h1>
-    <h5 class="text-center">Vous etes connectez sur le compte de <?= $_SESSION['auth']->nomMembre; ?></h5>
+<?php  if(isset($_SESSION['auth'])): ?>
+
+<nav aria-label="breadcrumb">
+<ol class="breadcrumb">
+<li class="breadcrumb-item active" aria-current="page"><h5 class="text-center">Vous etes connectez sur le compte de <?= $_SESSION['auth']->nomMembre; ?></h5></li>
+</ol>
+</nav>
+
+<?php else: ?>
+
+<?php endif; ?>
+
+<nav aria-label="breadcrumb">
+<ol class="breadcrumb">
+<li class="breadcrumb-item active" aria-current="page"><h5>Veuillez choisir un theme</h5></li>
+</ol>
+</nav>
 
 <?php
 // Permet de choisir le theme, les affiches tous du plus récent au plus ancien
 $bdd = new PDO('mysql:dbname=quizzBaseDeDonnee;host=localhost', 'maxLenireQuizz', '14759');
 $choixDuTheme = $bdd->query('SELECT nomTheme,  idTheme FROM theme ORDER BY idTheme DESC');
+?>
 
-echo '<form method="post" action="choixQuestionnaire.php">';
-echo '<select name="choixTheme">';
+<form method="post" action="choixQuestionnaire.php">
+    <div class="form-group">
+        <label for="exampleFormControlSelect1">Choisissez et validez le theme</label>
+            <select class="form-control" name="choixTheme">
+
+<?php
 while ($donnees = $choixDuTheme->fetch()){
 ?>
 
@@ -17,6 +37,8 @@ while ($donnees = $choixDuTheme->fetch()){
   
 <?php
 }
-echo '</select>';
-echo '<input type="submit" value="Choisir le theme" />';
-echo '</form>';
+?>
+</div>
+</select>
+    <input type="submit" value="Choisir le theme" />
+</form>

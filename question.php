@@ -1,4 +1,5 @@
 <?php include 'inc/header.php';
+
 $idDuQuestionnaire = $_POST['choixQuestionnaire'];
 
 // Affiche les questions du questionnaire choisis
