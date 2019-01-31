@@ -1,6 +1,7 @@
 <?php include 'inc/header.php';
 $idDuQuestionnaire = $_POST['choixQuestionnaire'];
 
+// Affiche les questions du questionnaire choisis
 $bdd = new PDO('mysql:dbname=quizzBaseDeDonnee;host=localhost', 'maxLenireQuizz', '14759');
 $afficheQuestion = $bdd->query("SELECT libelleQuestion_question ,  id_question , choixReponse_question FROM question WHERE fk_questionnaire='".$idDuQuestionnaire."' "); 
 
