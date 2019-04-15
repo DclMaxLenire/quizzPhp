@@ -1,6 +1,9 @@
 <?php include 'inc/header.php';?>
 
+<?php  if(isset($_SESSION['auth'])): ?>
 <h5 class="text-center">Vous etes connectez sur le compte de <?= $_SESSION['auth']->nomMembre; ?></h5>
+<?php else: ?>
+<?php endif; ?>
     <h5 class="text-center">Choissisez un questionnaire</h5>
 
 <?php

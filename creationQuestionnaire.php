@@ -36,13 +36,10 @@ $ajoutQuestion->execute([$_POST['quizQuestion'], $_POST['quizReponseChoix'], $_P
         <label for="">Ajouter vos questions</label>
         <input type="text" name="quizQuestion" class="form-control" />
         <div id="quizQuestion"></div>
-        <input type="button" onclick="addQuestion()" value="Ajouter vos questions"/><br>
 
         <label for="">Choix de reponse</label>
         <input type="text" name="quizReponseChoix" class="form-control" />
         <div id="quizReponse"></div>
-        <input type="button" onclick="addReponse()" value="Ajouter vos réponse"/><br>
-
         
         <label for="">Vrai Reponse</label>
         <input type="text" name="quizReponseVrai" class="form-control" />

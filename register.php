@@ -12,7 +12,7 @@ $errors['userName'] = "Votre Pseudo n'est pas valide";
 
 } else {
 
-$req =$pdo->prepare('SELECT idMembre FROM membre WHERE nomMembre = ?');
+$req =$pdo->prepare('SELECT idMembre FROM membre WHERE pseudo = ?');
 $req->execute([$_POST['userName']]);
 $user = $req->fetch();
 
@@ -26,7 +26,7 @@ $errors['userEmail'] = "Votre Email n'est pas valide";
 
 }   else {
 
-$req =$pdo->prepare('SELECT idMembre FROM membre WHERE emailMembre = ?');
+$req =$pdo->prepare('SELECT idMembre FROM membre WHERE email = ?');
 $req->execute([$_POST['userEmail']]);
 $email = $req->fetch(); // Stop a la première ligne identique
 
@@ -42,7 +42,7 @@ $errors['userPassword'] = "Vous devez entrer un mot de passe valide";
 
 if(empty($errors)) { // SI pas d'erreurs dans la totalité des inputs
 
-$req = $pdo->prepare("INSERT INTO membre SET nomMembre = ?, motDePasseMembre = ?, emailMembre = ?, validationTokenMembre = ?"); // Insert dans la bdd mais pas directement pour des questions de sécurités
+$req = $pdo->prepare("INSERT INTO membre SET pseudo = ?, motdepasse = ?, email = ?, validationTokenMembre = ?"); // Insert dans la bdd mais pas directement pour des questions de sécurités
 $password = password_hash($_POST['userPassword'], PASSWORD_BCRYPT); // Crypte le mot de passe 
 $token = str_random(50);
 $req->execute([$_POST['userName'], $password, $_POST['userEmail'], $token]); // Insert cette fois dans la base de donnée

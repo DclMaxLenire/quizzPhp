@@ -4,12 +4,12 @@ if(!empty($_POST) && !empty($_POST['userName']) && !empty($_POST['userPassword']
     
 require_once 'inc/db.php';
 
-$req = $pdo->prepare('SELECT * FROM membre WHERE (nomMembre = :nomMembre OR emailMembre = nomMembre) AND confirmedDateMembre IS NOT NULL');
-$req->execute(['nomMembre' => $_POST['userName']]);
+$req = $pdo->prepare('SELECT * FROM membre WHERE (pseudo = :pseudo OR email = pseudo) AND dateInscription IS NOT NULL');
+$req->execute(['pseudo' => $_POST['userName']]);
 $user = $req->fetch(); // Récupère l'utilisateur
 session_start();
 
-if(password_verify($_POST['userPassword'], $user->motDePasseMembre)){
+if(password_verify($_POST['userPassword'], $user->motdepasse)){
 
 $_SESSION['auth'] = $user;
 $_SESSION['flash']['success'] = 'Vous etes maintenant bien connecté';

@@ -11,7 +11,7 @@ $user = $req->fetch();
 
 if($user && $user->validationTokenMembre == $token) {
 session_start();
-$pdo->prepare('UPDATE membre SET validationTokenMembre = NULL, confirmedDateMembre = NOW() WHERE idMembre = ?')->execute([$userId]);
+$pdo->prepare('UPDATE membre SET validationTokenMembre = NULL, dateInscription = NOW() WHERE idMembre = ?')->execute([$userId]);
 $_SESSION['flash']['success'] = 'Votre compte a bien été validé';
 $_SESSION['auth'] = $user;
 header('Location: account.php');
