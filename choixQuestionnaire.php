@@ -7,22 +7,27 @@
     <h5 class="text-center">Choissisez un questionnaire</h5>
 
 <?php
-// Permet de choisir le questionnaire en fonction du theme choisis
-$bdd = new PDO('mysql:dbname=quizzBaseDeDonnee;host=localhost', 'maxLenireQuizz', '14759');
-$idDuTheme = $_POST['choixTheme'];
-$choixDuQuestionnaire = $bdd->query("SELECT idQuestionnaire , titreQuiz FROM questionnaire  WHERE idTheme='".$idDuTheme."'");
 
-echo '<form method="post" action="question.php">';
-echo '<select name="choixQuestionnaire">';
-while ($donnees = $choixDuQuestionnaire->fetch()){
+require 'inc/db.php';
+
+$idCategorie = $_POST['idCategorie'];
+
+$article = $pdo->prepare('SELECT * FROM questionnaire WHERE idCategorie = :idCategorie AND etat = 1');
+$article->bindParam(':idCategorie', $idCategorie);
+$article->execute();
+
+while ($donnees = $article->fetch())
+{          
 ?>
-
-<option value="<?php echo $donnees['idQuestionnaire'];?>"><?php echo $donnees['titreQuiz']; ?></option>
-
+<div class="card col-12 col-sm-12 col-md-8 col-lg-8 radius-10 m-auto">
+<div class="card-body">
+    <h5 class="card-title">
+        <?php echo htmlspecialchars($donnees->titreQuestionnaire); ?>
+    </h5>
+    <p class="card-text"><a href="jouerQuestionnaire.php?idQuestionnaire=<?php echo $donnees->idQuestionnaire ?>">Jour le questionnaire</a></p>
+</div>
+</div>
 <?php
 }
-echo '</select>';
-echo '<input type="submit" value="Choisir le questionnaire" />';
-echo '</form>';
-
+    
 ?>

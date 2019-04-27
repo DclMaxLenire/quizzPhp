@@ -24,13 +24,37 @@ $modfication->execute();
 }}
 
 
-$req = $pdo->prepare('SELECT titreQuestionnaire, question, reponse1 , reponse2, bonneReponse, nbQuestion FROM questionnaire, question WHERE questionnaire.idQuestionnaire = :idQuestionnaire AND question.idQuestionnaire = :idQuestionnaire');
+if(isset($_POST['validerEtat'])) {
+    $modficationEtat = $pdo->prepare('UPDATE questionnaire SET etat = :etat WHERE idQuestionnaire = :idQuestionnaire');
+    $modficationEtat->bindParam(':idQuestionnaire', $idQuestionnaire);
+    $modficationEtat->bindParam(':etat', $_POST['etat']);
+    $modficationEtat->execute();
+}
+
+$etatQuestionnaire = $pdo->prepare('SELECT * FROM questionnaire WHERE idQuestionnaire = :idQuestionnaire');
+$etatQuestionnaire->bindParam(':idQuestionnaire', $idQuestionnaire);
+$etatQuestionnaire->execute();
+
+?>
+<form method="POST">
+<?php
+while ($questionnaireEtat = $etatQuestionnaire->fetch()) {
+    echo "Etat du questionnaire : <input  class='form-control' value='$questionnaireEtat->etat' name='etat'>";
+}
+?>
+<button type="submit" name="validerEtat" id="validerChangement">Valider le changement d'etat</button>
+</form>
+<?php
+
+
+$req = $pdo->prepare('SELECT titreQuestionnaire, question, reponse1 , reponse2, bonneReponse, nbQuestion, etat FROM questionnaire, question WHERE questionnaire.idQuestionnaire = :idQuestionnaire AND question.idQuestionnaire = :idQuestionnaire');
 $req->bindParam(':idQuestionnaire', $idQuestionnaire);
 $req->bindParam(':idQuestionnaire', $idQuestionnaire);
 $req->execute();
 while ($donnees = $req->fetch()) {
 ?>
 <form method="POST">
+
 <?php
 for ($x = 0 ; $x <= $donnees->question ; $x++ ) {
     $nbQuestion = $donnees->nbQuestion;
@@ -43,10 +67,8 @@ for ($x = 0 ; $x <= $donnees->question ; $x++ ) {
 }
 
 ?>
-<button type="submit" name="validerModification">Valider</button>
+<button type="submit" name="validerModification" id="validerChangement">Valider</button>
 </form>
 <?php
 }
 ?>
-<a href="creationQuestion.php?idQuizz=<?php echo $idQuestionnaire ?>">Ajouter une question </a>
-<a 

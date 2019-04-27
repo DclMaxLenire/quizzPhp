@@ -20,25 +20,22 @@
 
 <?php
 // Permet de choisir le theme, les affiches tous du plus récent au plus ancien
-$bdd = new PDO('mysql:dbname=quizzBaseDeDonnee;host=localhost', 'maxLenireQuizz', '14759');
-$choixDuTheme = $bdd->query('SELECT nomTheme,  idTheme FROM theme ORDER BY idTheme DESC');
+require 'inc/db.php';
 ?>
+<form method="POST" action="choixQuestionnaire.php">
 
-<form method="post" action="choixQuestionnaire.php">
-    <div class="form-group">
-        <label for="exampleFormControlSelect1">Choisissez et validez le theme</label>
-            <select class="form-control" name="choixTheme">
+    <label class="form-control text-center font-weight-bold m-0">Choissier un theme</label>
+<select id="select" class="form-control mb-3" name="idCategorie">
+                    <?php
+                        
+                        $categorieArticle = $pdo->query("SELECT * FROM categorie ORDER BY idCategorie");
+                        while ($donnees = $categorieArticle->fetch()){ ?>
+                        <option value="<?php echo $donnees->idCategorie; ?>"><?php echo $donnees->nomCategorie; ?></option>
+                        <?php  } ?>
+                        
+                        
+                </select>
 
-<?php
-while ($donnees = $choixDuTheme->fetch()){
-?>
+    <button type="submit" class="btn btn-primary" name="validerLeTitre">Valider le titre</button>
 
-<option value="<?php echo $donnees['idTheme'];?>"><?php echo $donnees['nomTheme']; ?></option>
-  
-<?php
-}
-?>
-</div>
-</select>
-    <input type="submit" value="Choisir le theme" />
 </form>

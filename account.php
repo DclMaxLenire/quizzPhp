@@ -49,6 +49,7 @@ while ($donnees = $article->fetch())
     <p class="card-text"><em> Id idCategorie <b><?php echo $donnees->idCategorie ?></b></em></p>
     <p class="card-text"><a href="voirQuestionnaire.php?idQuestionnaire=<?php echo $donnees->idQuestionnaire ?>">Voir mon questionaire</a></p>
     <p class="card-text"><a href="modificationQuestionnaire.php?idQuestionnaire=<?php echo $donnees->idQuestionnaire ?>">Modifier mon questionaire</a></p>
+    <p class="card-text"><a href="supprimerQuestionnaire.php?idQuestionnaire=<?php echo $donnees->idQuestionnaire ?>">Supprimer mon questionnaire</a></p>
 </div>
 </div>
 <?php
@@ -56,40 +57,11 @@ while ($donnees = $article->fetch())
     
 ?>
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 <?php 
 include_once 'inc/db.php';
 
 $statut = $_SESSION['auth']->statut;
-if($_SESSION['auth'] && $statut == "admin") {
+if($_SESSION['auth'] && $statut == 1) {
 
 ?>
 

@@ -32,6 +32,13 @@ if(session_status() == PHP_SESSION_NONE) {
                 <button type="submit" name="deleteMembreExecute">Supprimer l'utilisateur</button> 
             </form>
 
+            <form method="POST" class="m-auto text-center" action="#">
+    <div class="form-group col-12">
+    <button class="btn btn-primary mb-3 col-4 col-lg-6" type="submit" name="afficherQuestionnaire">Afficher tous les questionnaires</button>
+    <button class="btn btn-primary col-8 col-lg-6" type="submit" name="fermerQuestionnaire">Fermer l'affichage des questionnaires</button>
+    </div>
+</form>
+
 <?php
 
 // Afficher la liste des membres //
@@ -46,9 +53,6 @@ echo '<p>NOM DU MEMBRE <strong>' . htmlspecialchars($donnees['pseudo']) . '</str
 
 }}
 
-?>
-
-<?php
 
 if(!empty($_POST['deleteMembre'])) {
 // Suprime un utilisateur
@@ -56,4 +60,28 @@ $bdd = new PDO('mysql:dbname=quizzBaseDeDonnee;host=localhost', 'maxLenireQuizz'
 $membreDelete = $bdd->prepare('DELETE FROM membre WHERE pseudo = :pseudo');
 $membreDelete->execute(['pseudo' => $_POST['deleteMembre']]);
 }
+
+if(isset($_POST['afficherQuestionnaire']) && ([$_POST['fermerQuestionnaire']])) {
+$article = $pdo->query('SELECT * FROM questionnaire ORDER BY idQuestionnaire DESC');
+$article->execute();
+
+while ($donnees = $article->fetch())
+{          
+?>
+<div class="card col-12 col-sm-12 col-md-8 col-lg-8 radius-10 m-auto">
+<div class="card-body">
+    <h5 class="card-title">
+        <?php echo htmlspecialchars($donnees->titreQuestionnaire); ?>
+    </h5>
+    <p class="card-text">Etat du questionnaire 0 = invisible<b><?php echo $donnees->etat ?></b></p>
+    <p class="card-text">Titre questionnaire<b><?php echo $donnees->idMembre ?></b></p>
+    <p class="card-text"><em> Id idCategorie <b><?php echo $donnees->idCategorie ?></b></em></p>
+    <p class="card-text"><a href="voirQuestionnaire.php?idQuestionnaire=<?php echo $donnees->idQuestionnaire ?>">Voir le questionaire</a></p>
+    <p class="card-text"><a href="modificationQuestionnaireAdmin.php?idQuestionnaire=<?php echo $donnees->idQuestionnaire ?>">Modifier le questionaire</a></p>
+    <p class="card-text"><a href="supprimerQuestionnaire.php?idQuestionnaire=<?php echo $donnees->idQuestionnaire ?>">Supprimer le questionnaire</a></p>
+</div>
+</div>
+<?php
+}}
+    
 ?>
