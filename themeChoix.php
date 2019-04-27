@@ -4,7 +4,7 @@
 
 <nav aria-label="breadcrumb">
 <ol class="breadcrumb">
-<li class="breadcrumb-item active" aria-current="page"><h5 class="text-center">Vous etes connectez sur le compte de <?= $_SESSION['auth']->nomMembre; ?></h5></li>
+<li class="breadcrumb-item active" aria-current="page"><h5 class="text-center">Vous etes connectez sur le compte de <?= $_SESSION['auth']->pseudo; ?></h5></li>
 </ol>
 </nav>
 

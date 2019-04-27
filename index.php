@@ -66,7 +66,7 @@ if(session_status() == PHP_SESSION_NONE) {
 <div class="card-body">
 <h5 class="card-title">Crée un quiz maintenant que tu es inscrit</h5>
 <p class="card-text">Créer le quiz idéal</p>
-<a href="creationQuestionnaire.php" class="btn btn-primary">Créer un quiz</a>
+<a href="creationTitre.php" class="btn btn-primary">Créer un quiz</a>
 </div>
 </div>
 
