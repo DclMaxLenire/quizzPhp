@@ -9,13 +9,13 @@ loggedOnly();
             <div class="container">
             <nav aria-label="breadcrumb">
             <ol class="breadcrumb">
-            <li class="breadcrumb-item active" aria-current="page"> <a class="nav-link" href="themeChoix.php">Répondre à un questionaire</a></li>
+            <li class="breadcrumb-item active" aria-current="page"> <a class="nav-link" href="themeChoix.php">Répondre à un questionnaire</a></li>
             </ol>
             </nav>
 
         <nav aria-label="breadcrumb">
         <ol class="breadcrumb">
-        <li class="breadcrumb-item active" aria-current="page"><a class="nav-link" href="creationTitre.php">Crée un questionaire</a></li>
+        <li class="breadcrumb-item active" aria-current="page"><a class="nav-link" href="creationTitre.php">Crée un questionnaire</a></li>
         </ol>
         </nav>
     
@@ -45,8 +45,6 @@ while ($donnees = $article->fetch())
     <h5 class="card-title">
         <?php echo htmlspecialchars($donnees->titreQuestionnaire); ?>
     </h5>
-    <p class="card-text">Titre questionnaire<b><?php echo $donnees->idMembre ?></b></p>
-    <p class="card-text"><em> Id idCategorie <b><?php echo $donnees->idCategorie ?></b></em></p>
     <p class="card-text"><a href="voirQuestionnaire.php?idQuestionnaire=<?php echo $donnees->idQuestionnaire ?>">Voir mon questionaire</a></p>
     <p class="card-text"><a href="modificationQuestionnaire.php?idQuestionnaire=<?php echo $donnees->idQuestionnaire ?>">Modifier mon questionaire</a></p>
     <p class="card-text"><a href="supprimerQuestionnaire.php?idQuestionnaire=<?php echo $donnees->idQuestionnaire ?>">Supprimer mon questionnaire</a></p>

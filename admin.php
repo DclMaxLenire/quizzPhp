@@ -73,11 +73,9 @@ while ($donnees = $article->fetch())
     <h5 class="card-title">
         <?php echo htmlspecialchars($donnees->titreQuestionnaire); ?>
     </h5>
-    <p class="card-text">Etat du questionnaire 0 = invisible<b><?php echo $donnees->etat ?></b></p>
-    <p class="card-text">Titre questionnaire<b><?php echo $donnees->idMembre ?></b></p>
-    <p class="card-text"><em> Id idCategorie <b><?php echo $donnees->idCategorie ?></b></em></p>
-    <p class="card-text"><a href="voirQuestionnaire.php?idQuestionnaire=<?php echo $donnees->idQuestionnaire ?>">Voir le questionaire</a></p>
-    <p class="card-text"><a href="modificationQuestionnaireAdmin.php?idQuestionnaire=<?php echo $donnees->idQuestionnaire ?>">Modifier le questionaire</a></p>
+    <p class="card-text">Etat du questionnaire 0 = invisible <b><?php echo $donnees->etat ?></b></p>
+    <p class="card-text"><a href="voirQuestionnaire.php?idQuestionnaire=<?php echo $donnees->idQuestionnaire ?>">Voir le questionnaire</a></p>
+    <p class="card-text"><a href="modificationQuestionnaireAdmin.php?idQuestionnaire=<?php echo $donnees->idQuestionnaire ?>">Modifier le questionnaire</a></p>
     <p class="card-text"><a href="supprimerQuestionnaire.php?idQuestionnaire=<?php echo $donnees->idQuestionnaire ?>">Supprimer le questionnaire</a></p>
 </div>
 </div>

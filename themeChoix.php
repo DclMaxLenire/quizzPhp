@@ -36,6 +36,6 @@ require 'inc/db.php';
                         
                 </select>
 
-    <button type="submit" class="btn btn-primary" name="validerLeTitre">Valider le titre</button>
+    <button type="submit" class="btn btn-primary">Valider le titre</button>
 
 </form>

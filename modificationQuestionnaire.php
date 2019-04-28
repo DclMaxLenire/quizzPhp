@@ -12,7 +12,6 @@ require 'inc/db.php';
 $idQuestionnaire = $_GET['idQuestionnaire'];
 
 if(isset($_POST['validerModification'])) {
-    for ($x = 0 ; $x <= $donnees->nbQuestion ; $x++ ){
 $modfication = $pdo->prepare('UPDATE question SET question = :question, reponse1 = :reponse1, reponse2 = :reponse2, bonneReponse = :bonneReponse WHERE idQuestionnaire = :idQuestionnaire AND nbQuestion = :nbQuestion');
 $modfication->bindParam(':idQuestionnaire', $idQuestionnaire);
 $modfication->bindParam(':nbQuestion', $_POST['nbQuestion']);
@@ -21,7 +20,7 @@ $modfication->bindParam(':reponse1', $_POST['reponse1']);
 $modfication->bindParam(':reponse2', $_POST['reponse2']);
 $modfication->bindParam(':bonneReponse', $_POST['bonneReponse']);
 $modfication->execute();
-}}
+}
 
 
 $req = $pdo->prepare('SELECT titreQuestionnaire, question, reponse1 , reponse2, bonneReponse, nbQuestion FROM questionnaire, question WHERE questionnaire.idQuestionnaire = :idQuestionnaire AND question.idQuestionnaire = :idQuestionnaire');
@@ -48,5 +47,5 @@ for ($x = 0 ; $x <= $donnees->question ; $x++ ) {
 <?php
 }
 ?>
-<a href="creationQuestion.php?idQuizz=<?php echo $idQuestionnaire ?>">Ajouter une question </a>
+<a class="btn btn-primary mt-3" href="creationQuestion.php?idQuizz=<?php echo $idQuestionnaire ?>">Ajouter une question </a>
 <a 

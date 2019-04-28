@@ -18,13 +18,30 @@ $req->bindParam(':idQuestionnaire', $idQuestionnaire);
 $req->execute();
 
 while ($donnees = $req->fetch()) {
-
+$i = 0;
 ?>
+<form method="POST" action="reponse.php">
 
-<p> Question <?php echo $donnees->nbQuestion ?> : <?php echo $donnees->question ?> </h1>
-<p> <?php echo $donnees->reponse1 ?> </p>
-<p> <?php echo $donnees->reponse2 ?> </p>
-<p> <?php echo $donnees->bonneReponse ?> </p>
+<input type="hidden" name="idQuestionnaire" value="<?php echo $idQuestionnaire ?>"/>
+<input type="hidden" name="nbQuestion" value="<?php echo $donnees->nbQuestion ?>"/>
+
+<h5 class="text-center font-weight-bold col-12">Question <?php echo $donnees->nbQuestion ?> : <?php echo $donnees->question ?> </h5>
+
+<div class="text-center">
+<input type="checkbox" name="reponse1" value="<?php echo $donnees->reponse1 ?>"/><label><?php echo $donnees->reponse1 ?></label>
+</div>
+
+<div class="text-center">
+<input type="checkbox" name="reponse2" value="<?php echo $donnees->reponse2 ?>"/><label><?php echo $donnees->reponse2 ?></label>
+</div>
+
+<div class="text-center">
+<input type="checkbox" name="reponse3" value="<?php echo $donnees->bonneReponse ?>"/><label><?php echo $donnees->bonneReponse ?></label>
+</div>
+
 <?php
+$i++;
 }
 ?>
+<button class="btn btn-primary" type="submit">Valider mes réponses</button>
+</form>

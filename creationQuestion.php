@@ -15,7 +15,6 @@ $nomQuestionnaire = $_POST['nomQuestionnaire'];
 $idMembre = $_SESSION['auth']->idMembre;
 $etat = 0;
 $idCategorie = $_POST['idCategorie'];
-echo $idCategorie;
 
 // Insert le titre dans la base de donées //
 if(isset($_POST['validerLeTitre']) && !empty($_POST['nomQuestionnaire'])) {
@@ -45,30 +44,29 @@ $quizz = $req->fetch();
 $_SESSION['quizz'] = $quizz;
 $idQuestionnaire = $_SESSION['quizz']->idQuestionnaire;
 ?>
-<h5><?php echo $_SESSION['quizz']->titreQuestionnaire; ?></h5>
+<h5 class="text-center mt-5"><?php echo $_SESSION['quizz']->titreQuestionnaire; ?></h5>
 
+<div class="col-12 col-lg-9 m-auto">
 <form method="POST" action="creationQuestionnaire.php">
 
-    <div class="form-group">
+            <label class="font-weight-bold mb-0 mt-3">Numéro de la question</label>
+            <input class="form-control" type="number" name="nbQuestion"/>
 
-            <label> Numéro de la question <label>
-            <input type="number" name="nbQuestion"/>
+            <label class="font-weight-bold mb-0 mt-3">Ajouter votre question</label>
+            <input class="form-control" type='text' name="question"/>
 
-            <label>Ajouter votre question</label>
-            <input type='text' name="question"/>
+            <label class="font-weight-bold mb-0 mt-3">Reponse 1</label>
+            <input class="form-control" type="text" name="reponse1"/>
 
-            <label> Reponse 1 </label>
-            <input type="text" name="reponse1"/>
+            <label class="font-weight-bold mb-0 mt-3">Reponse 2</label>
+            <input class="form-control" type="text" name="reponse2"/>
 
-            <label> Reponse 2 </label>
-            <input type="text" name="reponse2"/>
-
-            <label> Bonne réponse </label>
-            <input type="text" name="bonneReponse"/>
+            <label class="font-weight-bold mb-0 mt-3">Bonne réponse</label>
+            <input class="form-control" type="text" name="bonneReponse"/>
 
 
-        <button type="submit" class="btn btn-primary" name="ajouterQuestion">Valider ma question</button>
+        <button type="submit" class="btn btn-primary mt-3" name="ajouterQuestion">Valider ma question</button>
         <a href="account.php">Retour mon compte</a>
 
-    </div>
 </form>
+</div>

@@ -24,10 +24,9 @@ while ($donnees = $article->fetch())
     <h5 class="card-title">
         <?php echo htmlspecialchars($donnees->titreQuestionnaire); ?>
     </h5>
-    <p class="card-text"><a href="jouerQuestionnaire.php?idQuestionnaire=<?php echo $donnees->idQuestionnaire ?>">Jour le questionnaire</a></p>
+    <p class="card-text"><a href="jouerQuestionnaire.php?idQuestionnaire=<?php echo $donnees->idQuestionnaire ?>">Jouer le questionnaire</a></p>
 </div>
 </div>
 <?php
 }
-    
 ?>

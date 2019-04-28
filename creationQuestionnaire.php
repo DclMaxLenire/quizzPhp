@@ -8,7 +8,6 @@ if(isset($_SESSION['auth'])): ?>
 <?php 
 require 'inc/db.php';
 
-echo $_SESSION['quizz']->idQuestionnaire;
 $idQuestionnaire = $_SESSION['quizz']->idQuestionnaire;
 
 if (!isset($_POST['ajouterQuestion'])) {
@@ -23,7 +22,7 @@ if (!isset($_POST['ajouterQuestion'])) {
     }
 ?>
 
-<h5>Vos questionnaire </h5>
+<h5 class="text-center mt-3">Votre questionnaire en cour de création</h5>
 
 <?php
 
@@ -31,7 +30,6 @@ if (!isset($_POST['ajouterQuestion'])) {
 
 $idMembre = $_SESSION['auth']->idMembre;
 $idQuizz = $_SESSION['quizz']->idQuestionnaire;
-echo $_SESSION['quizz']->idQuestionnaire;
 
 if(isset($_POST['ajouterQuestion'])) {
         $verification = $pdo->prepare('SELECT * FROM question WHERE idQuestionnaire = :idQuestionnaire AND nbQuestion = :nbQuestion');
@@ -42,7 +40,7 @@ if(isset($_POST['ajouterQuestion'])) {
         $questionExisteDeja = $verification->fetch();
         
 if($questionExisteDeja) {
-    echo 'ce numéro de question est déjà attribué';
+    echo '<h5 class="text-center">ce numéro de question est déjà attribué</h5>';
 } else {
 $req = $pdo->prepare('INSERT INTO question SET nbQuestion = :nbQuestion, question = :question, reponse1 = :reponse1, reponse2 = :reponse2, bonneReponse = :bonneReponse, idQuestionnaire = :idQuestionnaire');
 $req->bindParam(':nbQuestion', $_POST['nbQuestion']);
@@ -63,10 +61,12 @@ $req->execute();
 while ($quizzCreation = $req->fetch())
 {
 ?>
-<h5>Titre du quizz </h5>
-<p><?php echo $quizzCreation->titreQuestionnaire ?></p>
-<p><?php echo $idQuizz ?></p>
-<a href="creationQuestion.php?idQuizz=<?php echo $idQuizz ?>">Ajouter d'autre question.</a>
+
+<h5 class="text-center font-weight-bold"><?php echo $quizzCreation->titreQuestionnaire ?></h5>
+<div class="text-center">
+<button class="btn btn-primary col-12 col-lg-9 m-auto"><a class="text-white" href="creationQuestion.php?idQuizz=<?php echo $idQuizz ?>">Ajouter une question.</a></button>
+<p class="card-text"><a href="voirQuestionnaire.php?idQuestionnaire=<?php echo $quizzCreation->idQuestionnaire ?>">Voir le questionaire</a></p>
+</div>
 <?php
 }
 ?>
