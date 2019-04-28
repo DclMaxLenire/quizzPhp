@@ -3,44 +3,64 @@ include 'inc/header.php';
 
 require 'inc/db.php';
 
-$req = $pdo->prepare('SELECT * FROM question WHERE  bonneReponse = :bonneReponse AND idQuestionnaire = :idQuestionnaire');
-$req->bindParam(':bonneReponse', $_POST['reponse3']);
-$req->bindParam(':idQuestionnaire', $_POST['idQuestionnaire']);
-$req->execute();
-$verifReponse = $req->fetch();
-
-$req = $pdo->prepare('SELECT * FROM question WHERE reponse1 = :reponse1 AND idQuestionnaire = :idQuestionnaire');
-$req->bindParam(':reponse1', $_POST['reponse1']);
-$req->bindParam(':idQuestionnaire', $_POST['idQuestionnaire']);
-$req->execute();
-$verifMauvaiseReponse1 = $req->fetch();
-
-$req = $pdo->prepare('SELECT * FROM question WHERE reponse2 = :reponse2 AND idQuestionnaire = :idQuestionnaire');
-$req->bindParam(':reponse2', $_POST['reponse2']);
-$req->bindParam(':idQuestionnaire', $_POST['idQuestionnaire']);
-$req->execute();
-$verifMauvaiseReponse2 = $req->fetch();
-
 $win = 0;
 $lose1 = 0;
 $lose2 = 0;
 
-    if($verifMauvaiseReponse1) {
-        $lose1++;
-    } 
 
-    if($verifMauvaiseReponse2) {
-        $lose2++;
-    }
-    
-if($verifReponse) {
-    $win++;
-} 
+$test = $_POST['reponse'.$i];
 
-if($lose1 >= 1 || $lose2 >= 1 ) {
-echo "<h5>Bien joué, Mais vous avez fait quelques fautes</h5>";
-} else {
-    echo "<h5>Bien joué c'est un sans faute</h5>";
+$idQuestionnaire = $_POST['idQuestionnaire'];
+$req = $pdo->prepare('SELECT titreQuestionnaire, question, reponse1 , reponse2, bonneReponse, nbQuestion FROM questionnaire, question WHERE questionnaire.idQuestionnaire = :idQuestionnaire AND question.idQuestionnaire = :idQuestionnaire');
+$req->bindParam(':idQuestionnaire', $idQuestionnaire);
+$req->bindParam(':idQuestionnaire', $idQuestionnaire);
+$req->execute();
+
+?>
+
+<h1 class="text-center">Verifiez vos réponses</h1>
+<div class="row justify-content-center">
+<div class="col-12 col-lg-3 border border-danger mt-3">
+<h5 class="font-weight-bold mt-3 mb-3">Les mauvaises réponses</h5>
+<?php
+$i = 1;
+while ($donnees = $req->fetch()) {
+$i;
+    $reponse1 = $donnees->reponse1;
+    echo "<h5>Question $i : $reponse1</h5>";
+$i++;
 }
 ?>
+</div>
+
+<?php 
+$req = $pdo->prepare('SELECT titreQuestionnaire, question, reponse1 , reponse2, bonneReponse, nbQuestion FROM questionnaire, question WHERE questionnaire.idQuestionnaire = :idQuestionnaire AND question.idQuestionnaire = :idQuestionnaire');
+$req->bindParam(':idQuestionnaire', $idQuestionnaire);
+$req->bindParam(':idQuestionnaire', $idQuestionnaire);
+$req->execute();
+?>
+<div class="col-12 col-lg-3 border border-danger mt-3">
+<tr>
+<h5 class="font-weight-bold mt-3 mb-3">Les mauvaises réponses</h5>
+<?php
+$i = 1;
+while ($donnees = $req->fetch()) {
+$i;
+    $reponse2 = $donnees->reponse2;
+    echo "<h5>Question $i : $reponse2</h5>";
+$i++;
+}
+?>
+</div>
+
+<div class="col-12 col-lg-3 border border-success mt-3 ml-3">
+<h5 class="font-weight-bold mt-3 mb-3">Vos réponses dans l'orde des questions</h5>
+<?php
+$test;
+echo implode("<h5>", $test) ;
+
+?>
+</div>
+</div>
+
 <a class="btn btn-primary" href="index.php">Retour Accueil</a>
